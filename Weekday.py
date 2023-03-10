@@ -2,15 +2,18 @@
 from calendar import weekday
 from time import sleep
 
-
+print("This program tells you the weekday of the inputed date...")
+sleep(2)
 while True:
-    given_date = input("Please input your date of birth in this format(dd/mm/yyyy):\n")
+    given_date = input("Enter the desired date you want to check in this format(dd/mm/yyyy):\n")
     try:
         day, month, year  = (given_date.split("/"))
-        if int(day) > 31:
-            raise KeyError("You exceeded the number of days in the month...")
-        elif int(month) > 12:
-            raise KeyError("You exceeded the number of months in a year...")
+        if int(day) > 31 or int(day) <= 0:
+            raise KeyError("Invalid number of days in a month...")
+        elif int(month) > 12 or int(month) <= 0:
+            raise KeyError("Invalid number of months in a year...")
+        elif int(year) <= 0:
+            raise KeyError("Invalid value for years...")
         elif int(month) in (9, 4, 6, 11) and int(day) > 30:
             raise ArithmeticError
         elif int(month) == 2 and int(day) > 28:
@@ -22,7 +25,7 @@ while True:
         break
     except ValueError:
         sleep(0.2)
-        print("Please fill in your date of birth with the day first, then the month, then the year seperated by a '/'.")
+        print("Please fill in the desired date with the day first, then the month, then the year seperated by a '/'.")
         sleep(1)
     except KeyError as Key:
         sleep(0.2)
@@ -30,7 +33,7 @@ while True:
         sleep(1)
     except ArithmeticError:
         sleep(0.2)
-        print("You exceeded the number of days in the month, please type in the correct date.")
+        print("Invalid number of days in the month, please type in the correct date.")
         sleep(1)
 
 week_day = weekday(int(year), int(month), int(day))
